@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.example.lemonade.ui.theme.LemonadeTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,22 +56,31 @@ fun LemonWithButtonAndImage(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .clickable { clicker = 2 }
                 )
-                Spacer (modifier = Modifier.height(18.dp))
-                Text (stringResource(R.string.tap_lemon_tree))
+                Spacer(modifier = Modifier.height(18.dp))
+                Text(stringResource(R.string.tap_lemon_tree))
             }
         }
+
         2 -> {
+            var randomClick = (2..4).random()
             Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
                     painter = painterResource(R.drawable.lemon_squeeze),
                     contentDescription = "1",
                     modifier = Modifier
-                        .clickable { clicker = 3 }
+                        .clickable {
+                            if (randomClick != 1) {
+                                randomClick--
+                            } else {
+                                clicker = 3
+                            }
+                        }
                 )
-                Spacer (modifier = Modifier.height(18.dp))
-                Text (stringResource(R.string.tap_lemon_squeeze))
+                Spacer(modifier = Modifier.height(18.dp))
+                Text(stringResource(R.string.tap_lemon_squeeze))
             }
         }
+
         3 -> {
             Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
@@ -78,10 +89,11 @@ fun LemonWithButtonAndImage(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .clickable { clicker = 4 }
                 )
-                Spacer (modifier = Modifier.height(18.dp))
-                Text (stringResource(R.string.tap_lemon_drink))
+                Spacer(modifier = Modifier.height(18.dp))
+                Text(stringResource(R.string.tap_lemon_drink))
             }
         }
+
         4 -> {
             Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
@@ -90,8 +102,8 @@ fun LemonWithButtonAndImage(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .clickable { clicker = 1 }
                 )
-                Spacer (modifier = Modifier.height(18.dp))
-                Text (stringResource(R.string.tap_lemon_restart))
+                Spacer(modifier = Modifier.height(18.dp))
+                Text(stringResource(R.string.tap_lemon_restart))
             }
         }
 
@@ -104,8 +116,10 @@ fun LemonWithButtonAndImage(modifier: Modifier = Modifier) {
 @Composable
 fun LemonadeApp() {
     LemonadeTheme {
-        LemonWithButtonAndImage(modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center))
+        LemonWithButtonAndImage(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.Center)
+        )
     }
 }
